@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderView" customModule="Saba_Khitaridze_Task_15" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HeaderView" customModule="Saba_Khitaridze_Task_15" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="239"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Bzc-gK-t0Z">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="239"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6r-20-Q2A">
+                            <rect key="frame" x="0.0" y="0.0" width="207" height="239"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Watched">
+                                <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="20"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="watchlistBtnPressed:" destination="-1" eventType="touchUpInside" id="ddM-fC-3vz"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZo-2f-RZa">
+                            <rect key="frame" x="207" y="0.0" width="207" height="239"/>
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Favourites">
+                                <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="20"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="favouritesBtnPressed:" destination="-1" eventType="touchUpInside" id="5qj-xx-L0S"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Bzc-gK-t0Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="A18-0a-Y1S"/>
+                <constraint firstItem="Bzc-gK-t0Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VaU-om-FUL"/>
+                <constraint firstAttribute="bottom" secondItem="Bzc-gK-t0Z" secondAttribute="bottom" id="YOi-W2-6Xi"/>
+                <constraint firstAttribute="trailing" secondItem="Bzc-gK-t0Z" secondAttribute="trailing" id="ogB-iW-CbJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="favouritesBtn" destination="tZo-2f-RZa" id="YGn-4G-EU0"/>
+                <outlet property="watchlistOrWatchedMovieBtn" destination="R6r-20-Q2A" id="c9x-H4-gp4"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="191.18303571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
