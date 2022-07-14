@@ -18,6 +18,7 @@ class HeaderView: UIView {
     @IBOutlet weak var watchlistOrWatchedMovieBtn: UIButton!
     @IBOutlet weak var favouritesBtn: UIButton!
     
+    
     //MARK: - Vars
     static let identifier = "HeaderView"
     var delegate: FilterMovieDelegate?
@@ -38,17 +39,17 @@ class HeaderView: UIView {
     //MARK: - Methods
     func configureView(for section: Int) {
         if section == 0 {
-            watchlistOrWatchedMovieBtn.titleLabel?.text = "Watchlist"
+            watchlistOrWatchedMovieBtn.setTitle("Watchlist", for: .normal)
             favouritesBtn.isHidden = true
         } else {
-            watchlistOrWatchedMovieBtn.titleLabel?.text = "Watched"
+            watchlistOrWatchedMovieBtn.setTitle("Watched", for: .normal)
             favouritesBtn.isHidden = false
         }
     }
 }
 
 
-//ამ მეთოდით button-ებს background უნდა შეეცვალათ დაჭერის მიხედვით, რომ ადვილი მისახვედრი ყოფილიყო watched სექციაში ვართ თუ Favourites, მაგრამ დელეგატების გამოყენების შემდეგ აღარ ფუნქციონირებდა და ვერ მივხვდი რატო :/ სავარაუდოდ tableView-ს რომ ვარილოუდებ მაგის ბრალია. დრო აღარ მეყოფა თორემ გამოვასწორებდი 
+//ამ მეთოდით button-ებს background უნდა შეეცვალათ დაჭერის მიხედვით, რომ ადვილი მისახვედრი ყოფილიყო watched სექციაში ვართ თუ Favourites, მაგრამ დელეგატების გამოყენების შემდეგ აღარ ფუნქციონირებდა :/ სავარაუდოდ tableView-ს რომ ვარილოუდებ მაგის ბრალია
 extension UIButton {
     func toggleBackgroundColor(with button: UIButton) {
         self.backgroundColor = .systemBlue

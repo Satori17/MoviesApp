@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xbN-Ou-MCi">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="158" width="414" height="738"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieCell" rowHeight="80" id="r3C-jV-uG9" customClass="MovieCell" customModule="Saba_Khitaridze_Task_15" customModuleProvider="target">
@@ -88,18 +89,49 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="0Z9-MB-2LH"/>
                                 </connections>
                             </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hVz-LK-EUB">
+                                <rect key="frame" x="0.0" y="88" width="414" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="VUH-Dd-75U"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VJH-1v-adY">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GenreCell" id="E84-ft-i8f">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ygb-K9-xGv">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="IB2-eO-lWN"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1SZ-Jr-mhp"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hVz-LK-EUB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EfC-7h-SNT"/>
                             <constraint firstItem="xbN-Ou-MCi" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="NrM-bJ-dbM"/>
+                            <constraint firstAttribute="trailing" secondItem="hVz-LK-EUB" secondAttribute="trailing" id="TQa-pV-6bt"/>
+                            <constraint firstItem="xbN-Ou-MCi" firstAttribute="top" secondItem="hVz-LK-EUB" secondAttribute="bottom" constant="10" id="W6j-j0-jos"/>
                             <constraint firstItem="xbN-Ou-MCi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WFQ-nU-bCJ"/>
-                            <constraint firstItem="xbN-Ou-MCi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="c9r-FD-0ao"/>
+                            <constraint firstItem="hVz-LK-EUB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jCM-3k-pzI"/>
                             <constraint firstAttribute="bottom" secondItem="xbN-Ou-MCi" secondAttribute="bottom" id="xmd-dO-1Hg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="Ckk-0I-zbV"/>
                     <connections>
+                        <outlet property="moviesCollectionView" destination="hVz-LK-EUB" id="XDb-4E-Trc"/>
                         <outlet property="moviesTableView" destination="xbN-Ou-MCi" id="tuq-Ah-qav"/>
                     </connections>
                 </viewController>
@@ -116,7 +148,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGd-w9-gsj">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thor: Love &amp; Thunder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foG-Wl-2bk">
                                         <rect key="frame" x="5" y="0.0" width="404" height="24"/>
@@ -135,7 +167,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jSs-8y-w7L">
-                                        <rect key="frame" x="20" y="268" width="78.5" height="20.5"/>
+                                        <rect key="frame" x="20" y="218" width="78.5" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMDB:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0t-s7-JmL">
                                                 <rect key="frame" x="0.0" y="0.0" width="46" height="20.5"/>
@@ -152,7 +184,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UaE-XV-qDQ">
-                                        <rect key="frame" x="20" y="308.5" width="155.5" height="20.5"/>
+                                        <rect key="frame" x="20" y="258.5" width="155.5" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bbm-yt-M5b">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.5" height="20.5"/>
@@ -169,7 +201,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0BG-1f-RZb">
-                                        <rect key="frame" x="20" y="349" width="232.5" height="20.5"/>
+                                        <rect key="frame" x="20" y="299" width="232.5" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main Actor:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edq-yC-wYK">
                                                 <rect key="frame" x="0.0" y="0.0" width="87" height="20.5"/>
@@ -186,8 +218,8 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWD-96-dU0">
-                                        <rect key="frame" x="20" y="549.5" width="374" height="248.5"/>
-                                        <mutableString key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</mutableString>
+                                        <rect key="frame" x="20" y="449.5" width="374" height="248.5"/>
+                                        <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -214,19 +246,50 @@
                                     <constraint firstItem="iWD-96-dU0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0BG-1f-RZb" secondAttribute="bottom" constant="20" id="yME-rO-KF7"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XfC-EF-vqd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="80"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="yDX-pV-Q92"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Shc-vS-IId">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GenreMovieCell" id="QHF-9w-bcj">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Qkf-ag-ugi">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Wpi-8b-NyK" id="Xwg-my-Fgn"/>
+                                    <outlet property="delegate" destination="Wpi-8b-NyK" id="kHy-SE-glh"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kNh-pm-oFm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="hGd-w9-gsj" secondAttribute="trailing" id="7Kh-2g-KJN"/>
-                            <constraint firstItem="hGd-w9-gsj" firstAttribute="leading" secondItem="4Mw-nY-TE7" secondAttribute="leading" id="RtX-9Q-Ysn"/>
+                            <constraint firstItem="kNh-pm-oFm" firstAttribute="trailing" secondItem="hGd-w9-gsj" secondAttribute="trailing" id="7Kh-2g-KJN"/>
+                            <constraint firstItem="hGd-w9-gsj" firstAttribute="leading" secondItem="kNh-pm-oFm" secondAttribute="leading" id="RtX-9Q-Ysn"/>
                             <constraint firstItem="kNh-pm-oFm" firstAttribute="bottom" secondItem="hGd-w9-gsj" secondAttribute="bottom" id="TsS-SY-hh4"/>
-                            <constraint firstItem="hGd-w9-gsj" firstAttribute="top" secondItem="kNh-pm-oFm" secondAttribute="top" id="Yd3-m5-QG0"/>
+                            <constraint firstItem="XfC-EF-vqd" firstAttribute="leading" secondItem="kNh-pm-oFm" secondAttribute="leading" id="bt5-9g-B5h"/>
+                            <constraint firstItem="hGd-w9-gsj" firstAttribute="top" secondItem="XfC-EF-vqd" secondAttribute="bottom" constant="20" id="esu-T9-TrI"/>
+                            <constraint firstItem="kNh-pm-oFm" firstAttribute="trailing" secondItem="XfC-EF-vqd" secondAttribute="trailing" id="f4l-fg-0Na"/>
+                            <constraint firstItem="XfC-EF-vqd" firstAttribute="top" secondItem="kNh-pm-oFm" secondAttribute="top" id="ppu-a2-PDj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addToFavouritesBtn" destination="udO-QH-Qmb" id="Oe8-xs-sxh"/>
                         <outlet property="descriptionLabel" destination="iWD-96-dU0" id="uSC-90-qfh"/>
+                        <outlet property="genreMoviesCollectionView" destination="XfC-EF-vqd" id="5ku-Sc-Ybz"/>
                         <outlet property="imdbRankLabel" destination="Mfa-WB-Wec" id="M9j-BL-7kh"/>
                         <outlet property="mainActorLabel" destination="SY0-O1-fUD" id="PSA-Xo-wBw"/>
                         <outlet property="movieInfoView" destination="hGd-w9-gsj" id="Bbf-dp-a6e"/>
@@ -236,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iq3-vD-3Nm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776.8115942028987" y="93.75"/>
+            <point key="canvasLocation" x="1776.5625" y="92.753623188405811"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kbp-ON-Hmz">

@@ -13,45 +13,71 @@ protocol AddToFavouritesDelegate {
 
 class DetailsVC: UIViewController {
 
-    //MARK: - IBOutlet
-    @IBOutlet weak var movieInfoView: UIView!
-    
     //MARK: - IBOutlets
-     @IBOutlet weak var movieTitleLabel: UILabel!
-     @IBOutlet weak var addToFavouritesBtn: UIButton!
-     @IBOutlet weak var imdbRankLabel: UILabel!
-     @IBOutlet weak var releaseDateLabel: UILabel!
-     @IBOutlet weak var mainActorLabel: UILabel!
-     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var movieInfoView: UIView!
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var addToFavouritesBtn: UIButton! {
+        didSet {
+            if let movie = movie {
+                guard movie.seen else {
+                    addToFavouritesBtn.isHidden = true
+                    return
+                }
+                if movie.isFavourite {
+                    addToFavouritesBtn.isHidden = false
+                    addToFavouritesBtn.backgroundColor = .systemYellow
+                    addToFavouritesBtn.setTitle("Added", for: .normal)
+                } else {
+                    addToFavouritesBtn.backgroundColor = .lightGray
+                    addToFavouritesBtn.setTitle("Add to Favourites", for: .normal)
+                }
+            }
+        }
+    }
+    @IBOutlet weak var imdbRankLabel: UILabel!
+    @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var mainActorLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var genreMoviesCollectionView: UICollectionView!
+    
     
     //MARK: - Vars
     static let identifier = "DetailsVC"
+    
     var delegate: AddToFavouritesDelegate?
-    
-    var movieTitle = ""
-    var imdbRank = ""
-    var releaseDate = ""
-    var mainActor = ""
-    var descriptionText = ""
     var movie: Movie?
-    var isFavourite = false
-    var delegateClosure: ((DetailsVC) -> ())?
+    var genreMovies = [Movie]()
     
     
+    //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieTitleLabel.text = movieTitle
-        imdbRankLabel.text = imdbRank
-        releaseDateLabel.text = releaseDate
-        mainActorLabel.text = mainActor
-        descriptionLabel.text = descriptionText
-        delegateClosure?(self)
-        if isFavourite {
-            addToFavouritesBtn.backgroundColor = .systemYellow
-            addToFavouritesBtn.setTitle("Added", for: .normal)
-        }
+        configureVC()
+        setCollectionView()
     }
     
+    //MARK: - Methods
+    
+    func configureVC() {
+        guard let openedMovie = movie else { return }
+        movieTitleLabel.text = openedMovie.title
+        imdbRankLabel.text = "\(openedMovie.imdb)"
+        releaseDateLabel.text = openedMovie.releaseDate
+        mainActorLabel.text = openedMovie.mainActor
+        descriptionLabel.text = openedMovie.description
+    }
+    
+    private func setCollectionView() {
+        //registering cell
+        genreMoviesCollectionView.registerNib(class: GenreCell.self)
+        //cell flow layout
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 5
+        flowLayout.scrollDirection = .horizontal
+        genreMoviesCollectionView.collectionViewLayout = flowLayout
+    }
+    
+    //MARK: - IBAction
     
     @IBAction func addToFavourites(_ sender: UIButton) {
         delegate?.markFavouriteMovie(from: self)
