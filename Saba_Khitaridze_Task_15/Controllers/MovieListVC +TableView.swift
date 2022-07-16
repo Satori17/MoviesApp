@@ -48,13 +48,10 @@ extension MovieListVC: UITableViewDelegate, UITableViewDataSource {
     private func unSeenMovie(with cell: MovieCell) {
         cell.unSeenMovie = { currentCell in
             if let indexPath = self.moviesTableView.indexPath(for: currentCell) {
-                self.allMovies[indexPath.row].seen = false
-                var unSeenMovie = self.watchedMovies.remove(at: indexPath.row)
-                self.watchedMoviesStorage.remove(at: indexPath.row)
-                unSeenMovie.seen = false                
-                self.movies.append(unSeenMovie)
-                self.movies = self.movies.sorted()
-                self.moviesTableView.reloadData()
+                if let movieToUnseen = self.allMovies.firstIndex(where: {$0.title == self.watchedMovies[indexPath.row].title}) {
+                    self.allMovies[movieToUnseen].seen = false
+                    }
+                self.updateTableView()
             }
         }
     }
@@ -81,6 +78,9 @@ extension MovieListVC: UITableViewDelegate, UITableViewDataSource {
         let view = UINib(nibName: HeaderView.identifier, bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? HeaderView
         guard let headerView = view else { return UIView() }
         headerView.configureView(for: section)
+        
+        section == 1 && isFavouriteSelected ? headerView.favouritesBtn.toggleBackgroundColor(with: headerView.watchlistOrWatchedMovieBtn) : headerView.watchlistOrWatchedMovieBtn.toggleBackgroundColor(with: headerView.favouritesBtn)
+            
         headerView.delegate = self
         
         return headerView

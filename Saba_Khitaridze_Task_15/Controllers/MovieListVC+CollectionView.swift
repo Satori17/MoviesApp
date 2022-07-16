@@ -18,34 +18,34 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCell.identifier, for: indexPath) as? GenreCell
         if let genreCell = cell {
             genreCell.genreLabel.text = "\(genreNames[indexPath.row])"
+            genreCell.isSelected = indexPath.row == 0
             
             return genreCell
         }
-        
         return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? GenreCell {
             moviesTableView.isUserInteractionEnabled = indexPath.row == 0
-            cell.backgroundColor = .white
-            cell.genreLabel.textColor = .systemBlue
-           }
-                
-        //for watchlist movies
-        movies = moviesByGenres[genreNames[indexPath.row].rawValue]!.filter({!$0.seen})                
-        //for watched movies
-        watchedMovies = watchedMoviesStorage
-        watchedMovies = genreNames[indexPath.row].rawValue == "All" ? watchedMoviesStorage : watchedMovies.filter({$0.genre.rawValue == genreNames[indexPath.row].rawValue})
+            cell.isSelected = true
+        }
         
-        moviesTableView.reloadData()
+        if genreNames[indexPath.row].rawValue == "All" {
+            updateTableView()
+        } else {
+            movies = allMovies.filter({$0.genre.rawValue == genreNames[indexPath.row].rawValue && !$0.seen})
+            watchedMovies = allMovies.filter({$0.genre.rawValue == genreNames[indexPath.row].rawValue && $0.seen})
+            moviesTableView.reloadData()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? GenreCell {
-            cell.backgroundColor = .systemBlue
-            cell.genreLabel.textColor = .white
-           }
+            if indexPath.row != 0 {
+                cell.isSelected = false
+            }
+        }
     }
     
     //Flow Layout

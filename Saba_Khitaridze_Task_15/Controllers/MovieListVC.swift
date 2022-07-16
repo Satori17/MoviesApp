@@ -16,9 +16,10 @@ class MovieListVC: UIViewController {
     
     //MARK: - Vars
     var allMovies = Movie.allMovies
-    lazy var movies = allMovies
-    var watchedMovies = [Movie]()
-    var watchedMoviesStorage = [Movie]()
+    lazy var movies = allMovies.filter({!$0.seen})
+    lazy var watchedMovies = allMovies.filter({$0.seen})
+    
+    var isFavouriteSelected = false
     
     //vars for genre sorting
     var moviesByGenres = [String: [Movie]]()
@@ -47,9 +48,15 @@ class MovieListVC: UIViewController {
     
     private func updateMovieListByGenres() {
         moviesByGenres = [Genre.All.rawValue: movies,
-                          Genre.Comedy.rawValue: movies.filter({$0.genre == .Comedy}),
-                          Genre.Action.rawValue: movies.filter({$0.genre == .Action}),
-                          Genre.Drama.rawValue: movies.filter({$0.genre == .Drama})]
+                          Genre.Comedy.rawValue: allMovies.filter({$0.genre == .Comedy}),
+                          Genre.Action.rawValue: allMovies.filter({$0.genre == .Action}),
+                          Genre.Drama.rawValue: allMovies.filter({$0.genre == .Drama})]
+    }
+    
+    func updateTableView() {
+        movies = allMovies.filter({!$0.seen})
+        watchedMovies = allMovies.filter({$0.seen})
+        moviesTableView.reloadData()
     }
 }
 
@@ -59,23 +66,24 @@ extension MovieListVC: SeenMovieDelegate, FilterMovieDelegate, AddToFavouritesDe
     
     func markSeenMovie(with cell: MovieCell) {
         if let indexPath = moviesTableView.indexPath(for: cell) {
-            allMovies[indexPath.row].seen = true
-            var seenMovie = movies.remove(at: indexPath.row)
-            seenMovie.seen = true
+            if let currentMovie = allMovies.firstIndex(where: {$0.title == movies[indexPath.row].title}) {
+                allMovies[currentMovie].seen = true
+            }
+            
             updateMovieListByGenres()
-            watchedMovies.append(seenMovie)
-            watchedMoviesStorage.append(seenMovie)
-            moviesTableView.reloadData()
+            updateTableView()
         }
     }
     
     func getFavouriteMovies() {       
-        watchedMovies = watchedMovies.filter({$0.isFavourite})
+        watchedMovies = allMovies.filter({$0.isFavourite})
+        isFavouriteSelected = true
         moviesTableView.reloadData()
     }
     
     func getWatchedMovies() {
-        watchedMovies = watchedMoviesStorage
+        watchedMovies = allMovies.filter({$0.seen})
+        isFavouriteSelected = false
         moviesTableView.reloadData()
     }
     
@@ -83,9 +91,8 @@ extension MovieListVC: SeenMovieDelegate, FilterMovieDelegate, AddToFavouritesDe
         vc.addToFavouritesBtn.backgroundColor = .systemYellow
         vc.addToFavouritesBtn.setTitle("Added", for: .normal)
         if let movie = vc.movie {
-            if let currentMovie = watchedMovies.firstIndex(where: {$0.title == movie.title}) {
-                watchedMovies[currentMovie].isFavourite = true
-                watchedMoviesStorage[currentMovie].isFavourite = true
+            if let currentMovie = allMovies.firstIndex(where: {$0.title == movie.title}) {
+                allMovies[currentMovie].isFavourite = true
             }
         }
         moviesTableView.reloadData()

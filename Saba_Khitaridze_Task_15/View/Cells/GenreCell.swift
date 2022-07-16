@@ -24,4 +24,16 @@ class GenreCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.cornerRadius = 15
     }
+    
+    override var isSelected: Bool {
+        willSet {
+            if isSelected {
+                self.backgroundColor = .white
+                genreLabel.textColor = .systemBlue
+            } else {
+                self.backgroundColor = .systemBlue
+                genreLabel.textColor = .white
+            }
+        }
+    }
 }

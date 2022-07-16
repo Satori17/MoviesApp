@@ -16,6 +16,7 @@ extension DetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCell.identifier, for: indexPath) as? GenreCell
         if let genreMovieCell = cell {
+            genreMovieCell.isSelected = true
             genreMovieCell.genreLabel.sizeToFit()
             genreMovieCell.genreLabel.text = genreMovies[indexPath.row].title
             

@@ -49,10 +49,11 @@ class HeaderView: UIView {
 }
 
 
-//ამ მეთოდით button-ებს background უნდა შეეცვალათ დაჭერის მიხედვით, რომ ადვილი მისახვედრი ყოფილიყო watched სექციაში ვართ თუ Favourites, მაგრამ დელეგატების გამოყენების შემდეგ აღარ ფუნქციონირებდა :/ სავარაუდოდ tableView-ს რომ ვარილოუდებ მაგის ბრალია
 extension UIButton {
     func toggleBackgroundColor(with button: UIButton) {
         self.backgroundColor = .systemBlue
+        self.titleLabel?.tintColor = .white
         button.backgroundColor = .white
+        button.titleLabel?.tintColor = .systemBlue
     }
 }
